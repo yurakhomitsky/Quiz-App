@@ -1,0 +1,8 @@
+<div *ngFor="let test of tests"  class="field">
+    <div class="control">
+      <label  class="radio">
+        <input type="radio" [value]="test" [(ngModel)]="answers[currentQuestion]" (change)="onChange($event)"  [name]="currentQuestion" />
+        {{test}}
+      </label>
+    </div>
+  </div>

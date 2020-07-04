@@ -1,0 +1,71 @@
+<section class="hero is-medium">
+<app-loader></app-loader>
+  <div class="hero-body ">
+    <ng-container *ngIf="!isTestDone; else resultTemplate">
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <h4 class="title is-3">
+            Наскільки ти кіберспортивний експерт
+          </h4>
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-half ">
+          <div class="container is-fluid box">
+            <h1 class="title is-4">Запитання N {{ currentQuestion + 1 }}</h1>
+            <h2 class="subtitle is-4">
+              {{ mapQuestions[currentQuestion]?.question }}
+            </h2>
+
+            <app-question-answers-list
+              [tests]="mapQuestions[currentQuestion]?.answers"
+              (selectedAnswer)="onSelectedAnswer($event)"
+            >
+            </app-question-answers-list>
+          </div>
+          <div class="field is-grouped is-grouped-right">
+            <button class="button is-black " (click)="onNext()">
+              {{ !isLastPage() ? "Продовжити" : "Завершити" }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</section>
+<ng-template #resultTemplate>
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <div class="card">
+        <div class="card-content">
+          <p class="title">
+            Наскільки ти кіберспортивний експерт
+          </p>
+          <div class="container">
+            <div class="box" [ngClass]="{
+              success: getStyleByScore(score).success,
+              middle: getStyleByScore(score).middle,
+              bad: getStyleByScore(score).bad
+          }">
+              <p class="title has-text-centered has-text-white">
+                {{getTitleByScore(score)}}
+              </p>
+            </div>
+            <p>Кількість правильних відповідей: {{score.numberOfTrueAnswers}} із {{score.maxMark}}.</p>
+            <p>У відсотках: {{score.scoreInPercent}}%</p>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <p class="card-footer-item">
+            <span>
+              <button class="button is-black is-rounded"
+                routerLink="/home"
+                >На головну</button
+              >
+            </span>
+          </p>
+        </footer>
+      </div>
+    </div>
+  </div>
+</ng-template>
