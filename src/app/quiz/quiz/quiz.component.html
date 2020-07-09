@@ -24,7 +24,7 @@
             </app-question-answers-list>
           </div>
           <div class="field is-grouped is-grouped-right">
-            <button class="button is-black " (click)="onNext()">
+            <button [disabled]="(loaderService.isLoading | async)" class="button is-black " (click)="onNext()">
               {{ !isLastPage() ? "Продовжити" : "Завершити" }}
             </button>
           </div>
