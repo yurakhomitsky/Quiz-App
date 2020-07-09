@@ -8,12 +8,12 @@ import { delay } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class QuizService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   findAll(): Observable<Quiz> {
     // return this.httpClient.get<Quiz>('http://localhost:9000/api/questions'); // npm run server
     return this.httpClient
-      .get<Quiz>('http://localhost:4200/assets/questions.json')
+      .get<Quiz>('./assets/questions.json')
       .pipe(delay(1500));
   }
 }
